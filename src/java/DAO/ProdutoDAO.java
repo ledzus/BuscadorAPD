@@ -21,69 +21,78 @@ import java.util.logging.Logger;
  * @author Matheus
  */
 public class ProdutoDAO {
-    
-    public ProdutoDAO(){
-        
+
+    public ProdutoDAO() {
+
     }
-    
-/* Faz o select com a cláusula where, seguindo em ordem de colunas como na query de criação de tabelas. Quando true, o campo será selecionado, quando false, não. O último parâmetro deve ser passado como em um comando sql, respeitando as aspas e a própria linguagem*/	
-public ArrayList selectWithWhere(boolean first, boolean second, boolean third, boolean fourth, boolean fifth, boolean sixth, String where) throws SQLException {
+
+    /* Faz o select com a cláusula where, seguindo em ordem de colunas como na query de criação de tabelas. Quando true, o campo será selecionado, quando false, não. O último parâmetro deve ser passado como em um comando sql, respeitando as aspas e a própria linguagem*/
+    public ArrayList selectWithWhere(boolean first, boolean second, boolean third, boolean fourth, boolean fifth, boolean sixth, boolean seventh, String where) throws SQLException {
         String query;
         ResultSet result;
         Produto produto;
-	String resultado = "";
+        String resultado = "";
         String[] vetorResultado;
-	ArrayList retorno = new ArrayList();
-	int controle = 0;
-	int cont;
-               
+        ArrayList retorno = new ArrayList();
+        int controle = 0;
+        int cont;
+
         query = "SELECT ";
-	if (first == true){
-		query += "ID, ";
-		controle++;
-	}
-	if (second == true){
-		query += "NOME, ";
-		controle++;
-	}
-	if (third == true){
-		query += "EMAIL, ";
-		controle++;
-	}
-	if (fourth == true){
-		query += "CEP, ";
-		controle++;
-	}
-	if (fifth == true){
-		query += "TIPO, ";
-		controle++;
-	}
-	if (sixth == true){
-		query += "TELEFONE, ";
-		controle++;
-	}
-	query = query.substring(0,query.length()-2);
-	query += " FROM USUARIOS WHERE " + where;
-        result = DBAccess.ExecuteQueryReturn(query);
-        while (result.next()){//está lançando nullpointer se nada for encontrado
-		for(cont=1;cont<=controle;cont++){
-			resultado += result.getString(cont) + "|";
-		}
-                
-                vetorResultado = resultado.split("|");
-                
-		retorno.add(resultado);
+        if (first == true) {
+            query += "ID, ";
+            controle++;
         }
-        
+        if (second == true) {
+            query += "NOME, ";
+            controle++;
+        }
+        if (third == true) {
+            query += "DESCRICAO, ";
+            controle++;
+        }
+        if (fourth == true) {
+            query += "PRECO, ";
+            controle++;
+        }
+        if (fifth == true) {
+            query += "LOJA, ";
+            controle++;
+        }
+        if (sixth == true) {
+            query += "IMAGEM, ";
+            controle++;
+        }
+        if (seventh == true) {
+            query += "LINK, ";
+            controle++;
+        }
+        query = query.substring(0, query.length() - 2);
+        query += " FROM PRODUTOS WHERE " + where;
+        result = DBAccess.ExecuteQueryReturn(query);
+        if (result != null) {
+            while (result.next()) {//está lançando nullpointer se nada for encontrado
+                for (cont = 1; cont <= controle; cont++) {
+                    resultado += result.getString(cont) + "#";
+                }
+
+                //adiciona o resultado em um objeto do tipo Produto
+                vetorResultado = resultado.split("#");
+
+                produto = new Produto();
+
+                produto.setNome(vetorResultado[1]);
+                produto.setDesc(vetorResultado[2]);
+                produto.setLink(vetorResultado[6]);
+                produto.setImg(vetorResultado[5]);
+                produto.setPreco(vetorResultado[3]);
+                produto.setLoja(vetorResultado[4]);
+
+                retorno.add(produto);
+
+            }
+        }
+
         return retorno;
-    }    
+
+    }
 }
-
-
-
-
-
-
-
-
-

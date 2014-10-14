@@ -55,9 +55,10 @@ function iniciaPagina(pintTotalItens) {
 
     $(".divProdutos").hide();
 
-    var lintCont = 1;
+    var lintCont = 0;
 
     $(".divProdutos").each(function () {
+        
         if (lintCont < 7) {
             if ($(this).data("id-div") == lintCont) {
                 $(this).show();

@@ -6,9 +6,14 @@
 
 package Controller;
 
+import DAO.ProdutoDAO;
+import Model.Produto;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -37,9 +42,17 @@ public class BuscaServlet extends HttpServlet {
         
         String lstrBusca = request.getParameter("busca");
         HttpSession session = request.getSession();
-        ArrayList al = new ArrayList();
+	ProdutoDAO dao = new ProdutoDAO();
+        ArrayList <Produto>produtos;
         
-        session.setAttribute("produto", al);
+        try {
+            produtos = dao.selectWithWhere(true, true, true, true, true, true, true, "NOME LIKE '%" + lstrBusca + "%' OR DESCRICAO LIKE '%" + lstrBusca + "%'");
+        } catch (SQLException ex) {
+            produtos = new ArrayList();
+            Logger.getLogger(BuscaServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        session.setAttribute("produto", produtos);
         RequestDispatcher view = request.getRequestDispatcher("index.jsp");
         view.forward(request, response);
         

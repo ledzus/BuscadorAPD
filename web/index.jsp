@@ -4,6 +4,7 @@
     Author     : Matheus
 --%>
 
+<%@page import="Model.Produto"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -171,7 +172,10 @@
                     <input id="entra" type="submit" value="Buscar" />
                 </form>
             </div>
-            <%ArrayList Produtos = (ArrayList) session.getAttribute("produto");%>
+            <%
+                ArrayList <Produto>Produtos = (ArrayList) session.getAttribute("produto");
+                int lintCont = 0;
+            %>
             <div id="divResultado">
                 <div id="divHeader_Resultado">
                     <% if (Produtos != null) {
@@ -188,26 +192,29 @@
                     <%
                         if (Produtos != null) {
                             if (Produtos.size() != 0) {
+
+                                for (lintCont = 0; lintCont < Produtos.size(); lintCont++) {
                     %>
-                    <div class="divProdutos" data-id-div="1">
-                        <img src="http://ultradownloads.com.br/conteudo/biblioteca/Televisao_Samsung_LN32D550.jpg" class="classImages" /><!-- [PRODUTOS].[IMAGEM] -->
-                        <label class="nomeProduto">Televisão</label><!-- [PRODUTOS].[NOME] -->
+                    <div class="divProdutos" data-id-div="<%=lintCont%>">
+                        <img src="<%=Produtos.get(lintCont).getImg() %>" class="classImages" /><!-- [PRODUTOS].[IMAGEM] -->
+                        <label class="nomeProduto"><%=Produtos.get(lintCont).getNome() %></label><!-- [PRODUTOS].[NOME] -->
                         <label class="labelPreco">Preço: </label>
-                        <label class="precoProduto">R$ 1500,00</label><!-- [PRODUTOS].[PRECO] -->
-                        <img class="classLogo" src="http://logodownload.org/wp-content/uploads/2014/05/logo-Americanas.com_.png" /><!-- [PRODUTOS].[LOJA] -->
+                        <label class="precoProduto"><%=Produtos.get(lintCont).getPreco() %></label><!-- [PRODUTOS].[PRECO] -->
+                        <img class="classLogo" src="<%=Produtos.get(lintCont).getLoja() %>" /><!-- [PRODUTOS].[LOJA] -->
                         <div class="divDescProduto">
                             <label class="labelDesc">Descrição do Produto:</label><br />
-                            <label class="descProduto">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ornare enim id sem mollis, sed eleifend dolor tincidunt. Proin eu justo egestas, facilisis diam nec, cursus massa. </label> <!-- [PRODUTOS].[DESCRICAO] -->
+                            <label class="descProduto"><%=Produtos.get(lintCont).getDesc() %></label> <!-- [PRODUTOS].[DESCRICAO] -->
                         </div>
-                        <input type="button" value="Loja" class="irLoja" onclick=""/><!-- [PRODUTOS].[LINK] -->
+                        <input type="button" value="Loja" class="irLoja" onclick="window.open('<%=Produtos.get(lintCont).getLink() %>')"/><!-- [PRODUTOS].[LINK] -->
                     </div>
-                    <%} else {%>
+                    <%}
+                    } else {%>
                     <p> Sua busca não retornou nenhum resultado </p>
                     <% }
 
-                        } else {%>
+                    } else {%>
                     <p> Sua busca não retornou nenhum resultado </p>
-                    <% } %>
+                    <% }%>
                 </div>
                 <div id="paginas"></div>
             </div>
@@ -215,8 +222,14 @@
 
         <script>
             ajustaCss();
-            criaLinks(25);
-            iniciaPagina(25);
+            <%
+                if (Produtos != null) {
+            %>
+            criaLinks(<%= Produtos.size()%>);
+            
+            <%
+                }
+            %>
         </script>
     </body>
 </html>

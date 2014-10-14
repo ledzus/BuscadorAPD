@@ -15,13 +15,13 @@ public class Produto {
     private String Desc;
     private String Link;
     private String Img;
-    private double Preco;
+    private String Preco;
     private String Loja;
 
     public Produto() {
     }
 
-    public Produto(String Nome, String Desc, String Link, String Img, double Preco, String Loja) {
+    public Produto(String Nome, String Desc, String Link, String Img, String Preco, String Loja) {
         this.Nome = Nome;
         this.Desc = Desc;
         this.Link = Link;
@@ -62,11 +62,11 @@ public class Produto {
         this.Img = Img;
     }
 
-    public double getPreco() {
+    public String getPreco() {
         return Preco;
     }
 
-    public void setPreco(double Preco) {
+    public void setPreco(String Preco) {
         this.Preco = Preco;
     }
 
