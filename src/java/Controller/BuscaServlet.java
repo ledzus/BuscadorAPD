@@ -39,6 +39,7 @@ public class BuscaServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8"); 
         
         String lstrBusca = request.getParameter("busca");
         HttpSession session = request.getSession();
@@ -46,7 +47,7 @@ public class BuscaServlet extends HttpServlet {
         ArrayList <Produto>produtos;
         
         try {
-            produtos = dao.selectWithWhere(true, true, true, true, true, true, true, "NOME LIKE '%" + lstrBusca + "%' OR DESCRICAO LIKE '%" + lstrBusca + "%'");
+            produtos = dao.selectWithWhere(true, true, true, true, true, true, true, "UPPER(NOME) LIKE UPPER('%" + lstrBusca + "%') OR UPPER(DESCRICAO) LIKE UPPER('%" + lstrBusca + "%')");
         } catch (SQLException ex) {
             produtos = new ArrayList();
             Logger.getLogger(BuscaServlet.class.getName()).log(Level.SEVERE, null, ex);

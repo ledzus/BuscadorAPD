@@ -30,12 +30,13 @@ public class ProdutoDAO {
     public ArrayList selectWithWhere(boolean first, boolean second, boolean third, boolean fourth, boolean fifth, boolean sixth, boolean seventh, String where) throws SQLException {
         String query;
         ResultSet result;
-        Produto produto;
+        Produto[] produto = new Produto[10];
         String resultado = "";
         String[] vetorResultado;
         ArrayList retorno = new ArrayList();
         int controle = 0;
         int cont;
+        int lintCont = 0;
 
         query = "SELECT ";
         if (first == true) {
@@ -78,17 +79,18 @@ public class ProdutoDAO {
                 //adiciona o resultado em um objeto do tipo Produto
                 vetorResultado = resultado.split("#");
 
-                produto = new Produto();
+                produto[lintCont] = new Produto();
 
-                produto.setNome(vetorResultado[1]);
-                produto.setDesc(vetorResultado[2]);
-                produto.setLink(vetorResultado[6]);
-                produto.setImg(vetorResultado[5]);
-                produto.setPreco(vetorResultado[3]);
-                produto.setLoja(vetorResultado[4]);
+                produto[lintCont].setNome(vetorResultado[1]);
+                produto[lintCont].setDesc(vetorResultado[2]);
+                produto[lintCont].setLink(vetorResultado[6]);
+                produto[lintCont].setImg(vetorResultado[5]);
+                produto[lintCont].setPreco(vetorResultado[3]);
+                produto[lintCont].setLoja(vetorResultado[4]);
 
-                retorno.add(produto);
-
+                retorno.add(produto[lintCont]);
+                
+                lintCont++;
             }
         }
 

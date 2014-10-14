@@ -160,6 +160,10 @@
                 text-align: center;
                 color: #fff;
             }
+            
+            .nenhumResultado {
+                text-align: center;
+            }
         </style>
 
     </head>
@@ -180,7 +184,7 @@
                 <div id="divHeader_Resultado">
                     <% if (Produtos != null) {
                             if (Produtos.size() != 0) {%>
-                    <label id="headerLabel">Mostrando 1 a 6 de um total de 44 produtos</label>
+                            <label id="headerLabel">Mostrando 1 a <%= Produtos.size() %> de um total de <%= Produtos.size() %> produtos</label>
                     <%} else {%>
                     <label id="headerLabel"></label>
                     <%
@@ -205,15 +209,15 @@
                             <label class="labelDesc">Descrição do Produto:</label><br />
                             <label class="descProduto"><%=Produtos.get(lintCont).getDesc() %></label> <!-- [PRODUTOS].[DESCRICAO] -->
                         </div>
-                        <input type="button" value="Loja" class="irLoja" onclick="window.open('<%=Produtos.get(lintCont).getLink() %>')"/><!-- [PRODUTOS].[LINK] -->
+                        <input type="button" value="Vá para a loja" class="irLoja" onclick="window.open('<%=Produtos.get(lintCont).getLink() %>')"/><!-- [PRODUTOS].[LINK] -->
                     </div>
                     <%}
                     } else {%>
-                    <p> Sua busca não retornou nenhum resultado </p>
+                    <p class="nenhumResultado"> Sua busca não retornou nenhum resultado </p>
                     <% }
 
                     } else {%>
-                    <p> Sua busca não retornou nenhum resultado </p>
+                    <p class="nenhumResultado"> Sua busca não retornou nenhum resultado </p>
                     <% }%>
                 </div>
                 <div id="paginas"></div>
