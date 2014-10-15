@@ -164,6 +164,17 @@
             .nenhumResultado {
                 text-align: center;
             }
+            
+            #ordenar{
+                position: absolute;
+                right: 5px;
+            }
+            
+            #labelOrdenar{
+                position: absolute;
+                right: 120px;
+                top: 3px;
+            }
         </style>
 
     </head>

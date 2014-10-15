@@ -81,15 +81,16 @@ public class ProdutoDAO {
 
                 produto[lintCont] = new Produto();
 
-                produto[lintCont].setNome(vetorResultado[1]);
-                produto[lintCont].setDesc(vetorResultado[2]);
-                produto[lintCont].setLink(vetorResultado[6]);
-                produto[lintCont].setImg(vetorResultado[5]);
-                produto[lintCont].setPreco(vetorResultado[3]);
-                produto[lintCont].setLoja(vetorResultado[4]);
+                produto[lintCont].setNome(resultado.split("#")[1]);
+                produto[lintCont].setDesc(resultado.split("#")[2]);
+                produto[lintCont].setLink(resultado.split("#")[6]);
+                produto[lintCont].setImg(resultado.split("#")[5]);
+                produto[lintCont].setPreco(resultado.split("#")[3]);
+                produto[lintCont].setLoja(resultado.split("#")[4]);
 
                 retorno.add(produto[lintCont]);
                 
+                resultado = "";
                 lintCont++;
             }
         }
